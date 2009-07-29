@@ -1,0 +1,4 @@
+Makefile.PL
+MANIFEST
+lib/Text/SpotSig.pm
+README
