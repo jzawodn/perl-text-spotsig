@@ -12,7 +12,7 @@ our %EXPORT_TAGS = ();
 
 1;
 
-my @defaultStopwords = qw(the an and or as of am your we a if is to our his her in);
+my @default_stopwords = qw(the an and or as of am your we a if is to our his her in);
 
 sub new {
 	my $class = shift;
@@ -21,22 +21,21 @@ sub new {
 		foo       => 1,
 		debug     => 0,
 		regex     => undef,
-		stopwords => [@defaultStopwords],
+		stopwords => [@default_stopwords],
 	};
-
 
 	return bless $self, $class;
 };
 
 ## set stopwords to the list we're passed
 
-sub setStopwords {
+sub set_stopwords {
 	my $self = shift;
 	my $ref  = shift;
 
-	## TODO: make sure we're passed an array and stuff
-
-	$self->{stopwords} = $ref;
+	if (ref($ref) eq 'ARRAY') {
+		$self->{stopwords} = $ref;
+	}
 	$self->{regex} = undef;
 }
 
