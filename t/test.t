@@ -10,22 +10,25 @@ use Data::Dumper;
 my $ss = new Text::SpotSig;
 my $text;
 my $sigs;
-my $verbose = 0;
+my $test;
+my $verbose = $ENV{VERBOSE};
 
 ok($ss->version > 0, 'version');
 
 
 ## test 1
 
+$test = 'simple';
 $text = "the quick brown fox jumped over the lazy dog";
 $sigs = $ss->analyze($text);
 
 if ($verbose) {
 	print "text: $text\n";
 	print Data::Dumper->Dump([$sigs]), "\n";
+	print "$test sigs: " . @$sigs  . "\n";
 }
 
-ok(1, 'simple');
+ok(@$sigs == 2, 'simple');
 
 ## test 2
 
@@ -35,9 +38,10 @@ $sigs = $ss->analyze($text);
 if ($verbose) {
 	print "text: $text\n";
 	print Data::Dumper->Dump([$sigs]), "\n";
+	print "$test sigs: " . @$sigs  . "\n";
 }
 
-ok(1, 'star wars');
+ok(@$sigs == 3, 'star wars');
 
 ## test 3: consitution preamble
 
@@ -47,9 +51,10 @@ $sigs = $ss->analyze($text);
 if ($verbose) {
 	print "text: $text\n";
 	print Data::Dumper->Dump([$sigs]), "\n";
+	print "$test sigs: " . @$sigs  . "\n";
 }
 
-ok(1, 'consitution preamble');
+ok(@$sigs == 15, 'consitution preamble');
 
 ## test 4: lord's prayer
 $text = qq{    Our Father in heaven,
@@ -78,9 +83,10 @@ $sigs = $ss->analyze($text);
 if ($verbose) {
 	print "text: $text\n";
 	print Data::Dumper->Dump([$sigs]), "\n";
+	print "$test sigs: " . @$sigs  . "\n";
 }
 
-ok(1, "lord's prayer");
+ok(@$sigs == 16, "lord's prayer");
 
 exit;
 
